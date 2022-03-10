@@ -7,17 +7,15 @@ class App extends Component {
     this.fetchTest();
   }
 
-  fetchTest = async  () => {
+  fetchTest = async () => {
     await getCategories();
     await getProductsFromCategoryAndQuery();
   }
-  
+
   render() {
-  return (
-    <div className="App">
-      
-    </div>
-  );
+    return (
+      <div className="App" />
+    );
   }
 }
 
