@@ -1,0 +1,18 @@
+.card-container {
+  border: 1px solid blue;
+  height: 300px;
+  margin: 15px;
+  width: 200px;
+}
+
+.card {
+  width: 100%;
+}
+
+.card img {
+  width: 100%;
+}
+
+.card-text {
+  width: 100%;
+}
