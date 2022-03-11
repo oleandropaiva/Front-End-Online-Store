@@ -25,9 +25,12 @@ export default class Home extends Component {
     this.setState({ productObject: results.results });
   }
 
-  selectHandler = ({ target }) => {
-    const { name, value } = target;
-    this.setState({ [name]: value });
+  selectHandler = async (id) => {
+    const results = await getProductsFromCategoryAndQuery(id);
+    this.setState({
+      categoryId: id,
+      productObject: results.results,
+    });
   }
 
   render() {
