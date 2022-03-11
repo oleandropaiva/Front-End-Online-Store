@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import CategoriesBar from '../components/CategoriesBar/index';
 import FormSearch from '../components/FormSearch';
 import Content from '../components/Content';
@@ -38,6 +39,9 @@ export default class Home extends Component {
           handleSearch={ this.handleSearch }
           handleChangeToSearch={ this.handleChangeToSearch }
         />
+        <Link to="/Cart" data-testid="shopping-cart-button">
+          <button type="button">Carrinho</button>
+        </Link>
         <CategoriesBar handler={ this.selectHandler } />
         {productObject.length && <Content
           productObject={ productObject }
