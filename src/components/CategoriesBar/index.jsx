@@ -31,14 +31,15 @@ class CategoriesBar extends Component {
       list = categoriesList
         .map(({ name, id }) => (
           <li key={ name }>
-            <label htmlFor={ id } data-testid="category">
+            <label htmlFor={ id }>
               <input
+                data-testid="category"
                 type="radio"
                 name="categoryId"
                 id={ id }
                 key={ id }
                 value={ id }
-                onChange={ handler }
+                onClick={ () => handler(id) }
               />
               {name}
             </label>
