@@ -6,7 +6,7 @@ export default class Content extends Component {
   render() {
     const { productObject } = this.props;
     return (
-      <div>
+      <>
 
         {productObject.map((each) => (
           <Cards
@@ -15,7 +15,7 @@ export default class Content extends Component {
           />
         ))}
 
-      </div>
+      </>
     );
   }
 }
