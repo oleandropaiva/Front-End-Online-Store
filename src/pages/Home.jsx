@@ -20,9 +20,8 @@ export default class Home extends Component {
 
   handleSearch = async () => {
     const { categoryId, inputValue } = this.state;
-    this.setState({
-      productObject: await getProductsFromCategoryAndQuery(categoryId, inputValue),
-    });
+    const results = await getProductsFromCategoryAndQuery(categoryId, inputValue);
+    this.setState({ productObject: results.results });
   }
 
   selectHandler = ({ target }) => {
