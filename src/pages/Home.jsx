@@ -8,7 +8,7 @@ export default class Home extends Component {
 
     this.state = {
       categoriesId: '',
-    }
+    };
   }
 
   selectHandler = ({ target }) => {
@@ -16,7 +16,7 @@ export default class Home extends Component {
 
     this.setState({
       [name]: value,
-    })
+    });
   }
 
   render() {

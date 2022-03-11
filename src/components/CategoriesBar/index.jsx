@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { getCategories } from '../../services/api';
+
 
 class CategoriesBar extends Component {
   constructor(props) {
@@ -55,6 +57,10 @@ class CategoriesBar extends Component {
       </ul>
     );
   }
+}
+
+CategoriesBar.propTypes = {
+  handler: PropTypes.func.isRequired,
 }
 
 export default CategoriesBar;
