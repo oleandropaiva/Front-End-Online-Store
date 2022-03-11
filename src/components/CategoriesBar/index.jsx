@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getCategories } from '../../services/api';
 
-
 class CategoriesBar extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +34,7 @@ class CategoriesBar extends Component {
             <label htmlFor={ id } data-testid="category">
               <input
                 type="radio"
-                name="categoriesId"
+                name="categoryId"
                 id={ id }
                 key={ id }
                 value={ id }
@@ -61,6 +60,6 @@ class CategoriesBar extends Component {
 
 CategoriesBar.propTypes = {
   handler: PropTypes.func.isRequired,
-}
+};
 
 export default CategoriesBar;
