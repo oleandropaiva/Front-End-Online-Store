@@ -22,14 +22,12 @@ export default class Product extends Component {
       },
     } = this.props;
     const result = await getProductDetails(params.id);
-    console.log(result);
     this.setState({ infoProduct: result });
   }
 
   render() {
     // ,
-    const { infoProduct: { title, price, thumbnail }, infoProduct } = this.state;
-    console.log(infoProduct);
+    const { infoProduct: { title, price, thumbnail } } = this.state;
     return (
       <div className="product-container">
         <h1 data-testid="product-detail-name">{`${title} - ${price} `}</h1>
