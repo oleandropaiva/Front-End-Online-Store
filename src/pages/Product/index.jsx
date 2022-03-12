@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './style.css';
 import PropTypes from 'prop-types';
 import { getProductDetails } from '../../services/api';
 
@@ -21,16 +22,14 @@ export default class Product extends Component {
       },
     } = this.props;
     const result = await getProductDetails(params.id);
-    console.log(result);
     this.setState({ infoProduct: result });
   }
 
   render() {
     // ,
-    const { infoProduct: { title, price, thumbnail }, infoProduct } = this.state;
-    console.log(infoProduct);
+    const { infoProduct: { title, price, thumbnail } } = this.state;
     return (
-      <>
+      <div className="product-container">
         <h1 data-testid="product-detail-name">{`${title} - ${price} `}</h1>
         <img src={ thumbnail } alt={ title } />
         <section>
@@ -39,7 +38,7 @@ export default class Product extends Component {
             <li>especific1</li>
           </ul>
         </section>
-      </>
+      </div>
     );
   }
 }

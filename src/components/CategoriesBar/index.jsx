@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './style.css';
 import PropTypes from 'prop-types';
 import { getCategories } from '../../services/api';
 
@@ -52,7 +53,7 @@ class CategoriesBar extends Component {
 
   render() {
     return (
-      <ul>
+      <ul className="category-ul">
         { this.listCategories() }
       </ul>
     );

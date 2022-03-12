@@ -1,0 +1,6 @@
+.category-ul {
+  border: solid 1px blue;
+  height: 500px;
+  min-width: 280px;
+  overflow-y: auto;
+}
