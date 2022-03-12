@@ -26,7 +26,6 @@ export default class Product extends Component {
   }
 
   render() {
-    // ,
     const { infoProduct: { title, price, thumbnail } } = this.state;
     return (
       <div className="product-container">
