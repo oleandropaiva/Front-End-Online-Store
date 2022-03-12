@@ -8,16 +8,14 @@ export default class Card extends Component {
     const { productObject: { title, price, thumbnail, id } } = this.props;
     const image = thumbnail.replace(/I/, 'J');
     return (
-      <Link to={ `/product/${id}` } data-testid="product-detail-link">
+      <Link className="link" to={ `/product/${id}` } data-testid="product-detail-link">
         <div className="card-container" data-testid="product">
-          <div className="card">
 
-            <img src={ image } alt={ title } />
+          <img src={ image } alt={ title } />
 
-            <div className="card-text">
-              <p>{title}</p>
-              <p>{price}</p>
-            </div>
+          <div className="card-text">
+            <p>{title}</p>
+            <p>{price}</p>
 
           </div>
         </div>
