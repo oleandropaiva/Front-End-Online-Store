@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import './style.css';
 import { Link } from 'react-router-dom';
-import CategoriesBar from '../../components/CategoriesBar/index';
-import FormSearch from '../../components/FormSearch';
-import Content from '../../components/Content';
-import { getProductsFromCategoryAndQuery } from '../../services/api';
+import CategoriesBar from '../components/CategoriesBar/index';
+import FormSearch from '../components/FormSearch';
+import Content from '../components/Content';
+import { getProductsFromCategoryAndQuery } from '../services/api';
 
 export default class Home extends Component {
   constructor(props) {
@@ -46,15 +45,10 @@ export default class Home extends Component {
         <Link to="/Cart" data-testid="shopping-cart-button">
           <button type="button">Carrinho</button>
         </Link>
-
-        <div className="category-content-container">
-          <CategoriesBar handler={ this.selectHandler } />
-          {productObject.length
-          && <Content
-            productObject={ productObject }
-            addToCart={ this.addToCart }
-          />}
-        </div>
+        <CategoriesBar handler={ this.selectHandler } />
+        {productObject.length && <Content
+          productObject={ productObject }
+        />}
       </div>
     );
   }
