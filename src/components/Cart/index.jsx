@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { getProductDetails } from '../../services/api';
 
 export default class Cart extends Component {
   constructor(props) {
     super(props);
+    const { productId } = this.props;
+
     this.state = {
-      cartListId: ['MLB1955887064', 'MLB1955887065', 'MLB1955887064'],
+      cartListId: productId,
       cartListObject: [],
     };
   }
 
   componentDidMount() {
-    this.handleListOfProducts();
-  }
-
-  handleListOfProducts = () => {
-    // const { id } = this.props;
-    this.setState(({ cartListId }) => ({ cartListId: [...cartListId, 'MLB1955887065'] }),
-      this.listProducts);
+    this.listProducts();
   }
 
   listProducts = async ({ cartListId } = this.state) => {
@@ -61,14 +57,14 @@ export default class Cart extends Component {
 
         <div className="cart">
 
-          {!cartListObject
+          {!cartListObject.length > 0
             ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
             : (
               cartListObject.map(({ id, title, thumbnail, price, itemAmount }, i) => (
                 <div key={ `${id}-${i}` } className="product">
                   <img src={ thumbnail } alt="Foto do produto" />
                   <p>{price}</p>
-                  <h3>{title}</h3>
+                  <h3 data-testid="shopping-cart-product-name">{title}</h3>
 
                   <div>
                     <button
@@ -82,7 +78,7 @@ export default class Cart extends Component {
                       -
 
                     </button>
-                    <span>{itemAmount}</span>
+                    <span data-testid="shopping-cart-product-quantity">{itemAmount}</span>
                     <button
                       id={ id }
                       data-testid="product-increase-quantity"
@@ -106,10 +102,10 @@ export default class Cart extends Component {
   }
 }
 
-// Cart.defaultProps = {
-//   id: undefined,
-// };
+Cart.defaultProps = {
+  productId: undefined,
+};
 
-// Cart.propTypes = {
-//   id: PropTypes.string,
-// };
+Cart.propTypes = {
+  productId: PropTypes.arrayOf(PropTypes.string),
+};
