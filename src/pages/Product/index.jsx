@@ -27,25 +27,30 @@ export default class Product extends Component {
   }
 
   render() {
-    const { infoProduct: { title, price, thumbnail, id } } = this.state;
+    const { infoProduct: { title, price, thumbnail }, infoProduct } = this.state;
     const { addToCart } = this.props;
     return (
       <div className="product-container">
+
         <Link to="/Cart" data-testid="shopping-cart-button">
           <button type="button">Carrinho</button>
         </Link>
+
         <h1 data-testid="product-detail-name">{`${title} - ${price} `}</h1>
+
         <img src={ thumbnail } alt={ title } />
+
         <section>
           <h3>Especificações Técnicas</h3>
           <ul>
             <li>especific1</li>
           </ul>
         </section>
+
         <button
           type="button"
           data-testid="product-detail-add-to-cart"
-          onClick={ () => addToCart(id) }
+          onClick={ () => addToCart(infoProduct) }
         >
           Adicionar ao Carrinho
 

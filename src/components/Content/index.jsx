@@ -1,26 +1,55 @@
 import React, { Component } from 'react';
 import './style.css';
-import PropTypes from 'prop-types';
-import Cards from '../Cards/index';
+import { Route, Switch } from 'react-router-dom';
+import Home from '../../pages/Home';
+import Cart from '../../pages/Cart';
+import Product from '../../pages/Product';
 
 export default class Content extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      arrayObjectInfo: [],
+    };
+  }
+
+  addToCart = (objectFrom) => {
+    this.setState(({ arrayObjectInfo }) => ({
+      arrayObjectInfo: ([...arrayObjectInfo, objectFrom]),
+    }));
+  }
+
+  removeItemFromCart = () => {
+  }
+
   render() {
-    const { productObject } = this.props;
+    const { productId, arrayObjectInfo } = this.state;
     return (
       <div className="content-container">
-
-        {productObject.map((each) => (
-          <Cards
-            key={ each.id }
-            productObject={ each }
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={ () => <Home addToCart={ this.addToCart } /> }
           />
-        ))}
-
+          <Route
+            exact
+            path="/Cart"
+            render={ () => (
+              <Cart
+                productId={ productId }
+                addToCart={ this.addToCart }
+                removeFromCart={ this.removeItemFromCart }
+                arrayObjectInfo={ arrayObjectInfo }
+              />) }
+          />
+          <Route
+            exact
+            path="/product/:id"
+            render={ (props) => <Product { ...props } addToCart={ this.addToCart } /> }
+          />
+        </Switch>
       </div>
     );
   }
 }
-
-Content.propTypes = {
-  productObject: PropTypes.arrayOf(PropTypes.shape).isRequired,
-};

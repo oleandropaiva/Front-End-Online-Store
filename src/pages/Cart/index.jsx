@@ -1,53 +1,46 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getProductDetails } from '../../services/api';
 
 export default class Cart extends Component {
   constructor(props) {
     super(props);
-    const { productId } = this.props;
-
     this.state = {
-      cartListId: productId,
       cartListObject: [],
     };
   }
 
   componentDidMount() {
-    this.listProducts();
-  }
-
-  listProducts = async ({ cartListId } = this.state) => {
-    cartListId = cartListId.sort()
-      .filter((id, i) => id !== cartListId[i + 1]);
-
-    const arrayOfProducts = await Promise.all(cartListId
-      .map((eachId) => getProductDetails(eachId)));
-    this.setState({
-      cartListObject: arrayOfProducts
-        .map((each) => ({ ...each, itemAmount: this.handleAmountUnits(each.id) })),
-    });
-  }
-
-  handleAmountUnits = (id) => {
-    const { cartListId } = this.state;
-    const sum = cartListId.reduce((acc, idData) => (idData === id ? acc + 1 : acc), 0);
-
-    return sum;
+    const { arrayObjectInfo } = this.props;
+    this.setState({ cartListObject: arrayObjectInfo });
   }
 
   handleAmount = ({ target: { id, name } }) => {
+    const { addToCart, removeFromCart } = this.props;
+
     if (name === 'plusItem') {
       this.setState(({ cartListId }) => ({ cartListId: [...cartListId, id] }));
+      addToCart(id);
     } else {
       const { cartListId } = this.state;
-      const index = cartListId.indexOf(id);
-      cartListId.splice(index, 1);
-      this.setState({
-        cartListId,
-      });
+      const index = cartListId.indexOf(id, 1);
+      this.setState((prev) => ({
+        cartListId: prev.cartListId.filter((_id, i) => i !== index),
+      }));
+
+      removeFromCart(cartListId);
     }
     this.listProducts();
+  }
+
+  handleToRemove = ({ target: { id } }) => {
+    const { removeFromCart } = this.props;
+    this.setState(({ cartListId }) => ({
+      cartListId: cartListId.filter((idData) => idData !== id),
+    }), () => {
+      const { cartListId } = this.state;
+      removeFromCart(cartListId);
+      this.listProducts();
+    });
   }
 
   render() {
@@ -57,7 +50,7 @@ export default class Cart extends Component {
 
         <div className="cart">
 
-          {!cartListObject.length > 0
+          {!cartListObject.length
             ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
             : (
               cartListObject.map(({ id, title, thumbnail, price, itemAmount }, i) => (
@@ -66,7 +59,7 @@ export default class Cart extends Component {
                   <p>{price}</p>
                   <h3 data-testid="shopping-cart-product-name">{title}</h3>
 
-                  <div>
+                  <div className="buttons-add">
                     <button
                       id={ id }
                       data-testid="product-decrease-quantity"
@@ -91,21 +84,36 @@ export default class Cart extends Component {
                     </button>
                   </div>
 
+                  <div>
+                    <button
+                      id={ id }
+                      type="button"
+                      onClick={ this.handleToRemove }
+                    >
+                      (X)
+                    </button>
+                  </div>
+
                 </div>
               ))
             )}
 
         </div>
+        <button
+          id=""
+          type="button"
+          onClick=""
+        >
+          Finalizar compra
+        </button>
 
       </div>
     );
   }
 }
 
-Cart.defaultProps = {
-  productId: undefined,
-};
-
 Cart.propTypes = {
-  productId: PropTypes.arrayOf(PropTypes.string),
+  arrayObjectInfo: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  addToCart: PropTypes.func.isRequired,
+  removeFromCart: PropTypes.func.isRequired,
 };

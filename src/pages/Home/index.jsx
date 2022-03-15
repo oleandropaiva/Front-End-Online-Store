@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './style.css';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import CategoriesBar from '../../components/CategoriesBar/index';
 import FormSearch from '../../components/FormSearch';
-import Content from '../../components/Content';
+import Cards from '../../components/Cards';
 import { getProductsFromCategoryAndQuery } from '../../services/api';
 
 export default class Home extends Component {
@@ -36,6 +37,7 @@ export default class Home extends Component {
 
   render() {
     const { productObject } = this.state;
+    const { addToCart } = this.props;
     return (
 
       <div className="home-container">
@@ -50,12 +52,19 @@ export default class Home extends Component {
         <div className="category-content-container">
           <CategoriesBar handler={ this.selectHandler } />
           {productObject.length
-          && <Content
-            productObject={ productObject }
-            addToCart={ this.addToCart }
-          />}
+            && productObject.map((each) => (
+              <Cards
+                key={ each.id }
+                productObject={ each }
+                addToCart={ addToCart }
+              />
+            ))}
         </div>
       </div>
     );
   }
 }
+
+Home.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+};
