@@ -2,49 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class Cart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cartListObject: [],
-    };
-  }
-
-  componentDidMount() {
-    const { arrayObjectInfo } = this.props;
-    this.setState({ cartListObject: arrayObjectInfo });
-  }
-
-  handleAmount = ({ target: { id, name } }) => {
-    const { addToCart, removeFromCart } = this.props;
-
-    if (name === 'plusItem') {
-      this.setState(({ cartListId }) => ({ cartListId: [...cartListId, id] }));
-      addToCart(id);
-    } else {
-      const { cartListId } = this.state;
-      const index = cartListId.indexOf(id, 1);
-      this.setState((prev) => ({
-        cartListId: prev.cartListId.filter((_id, i) => i !== index),
-      }));
-
-      removeFromCart(cartListId);
-    }
-    this.listProducts();
-  }
-
-  handleToRemove = ({ target: { id } }) => {
-    const { removeFromCart } = this.props;
-    this.setState(({ cartListId }) => ({
-      cartListId: cartListId.filter((idData) => idData !== id),
-    }), () => {
-      const { cartListId } = this.state;
-      removeFromCart(cartListId);
-      this.listProducts();
-    });
+  handleAmount = ({ target: { id } }) => {
+    const { addToCart } = this.props;
+    const { cartListObject } = this.props;
+    addToCart(cartListObject.find((obj) => obj.id === id));
   }
 
   render() {
-    const { cartListObject } = this.state;
+    const { cartListObject, removeItemFromCart, calcAmountLess } = this.props;
     return (
       <div className="cart-container">
 
@@ -65,8 +30,8 @@ export default class Cart extends Component {
                       data-testid="product-decrease-quantity"
                       name="lessItem"
                       type="button"
-                      onClick={ this.handleAmount }
                       disabled={ itemAmount <= 1 }
+                      onClick={ calcAmountLess }
                     >
                       -
 
@@ -88,7 +53,7 @@ export default class Cart extends Component {
                     <button
                       id={ id }
                       type="button"
-                      onClick={ this.handleToRemove }
+                      onClick={ removeItemFromCart }
                     >
                       (X)
                     </button>
@@ -113,7 +78,8 @@ export default class Cart extends Component {
 }
 
 Cart.propTypes = {
-  arrayObjectInfo: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  cartListObject: PropTypes.arrayOf(PropTypes.shape).isRequired,
   addToCart: PropTypes.func.isRequired,
-  removeFromCart: PropTypes.func.isRequired,
+  removeItemFromCart: PropTypes.func.isRequired,
+  calcAmountLess: PropTypes.func.isRequired,
 };

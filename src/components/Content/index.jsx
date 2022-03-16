@@ -14,16 +14,39 @@ export default class Content extends Component {
   }
 
   addToCart = (objectFrom) => {
+    const { arrayObjectInfo } = this.state;
+    if (arrayObjectInfo.some((each) => each.id === objectFrom.id)) {
+      this.calcAmount(objectFrom, arrayObjectInfo);
+    } else {
+      this.setState((prev) => ({
+        arrayObjectInfo: ([...prev.arrayObjectInfo, { ...objectFrom, itemAmount: 1 }]),
+      }));
+    }
+  }
+
+  calcAmount = (objectFrom, arrayObjectInfo) => {
+    arrayObjectInfo
+      .find((obj) => obj.id === objectFrom.id).itemAmount += arrayObjectInfo
+        .reduce((acc, obj) => (obj.id === objectFrom.id ? acc + 1 : acc), 0);
+    this.setState({ arrayObjectInfo });
+  }
+
+  calcAmountLess = ({ target: { id } }) => {
+    const { arrayObjectInfo } = this.state;
+    arrayObjectInfo
+      .find((obj) => obj.id === id).itemAmount -= arrayObjectInfo
+        .reduce((acc, obj) => (obj.id === id ? acc + 1 : acc), 0);
+    this.setState({ arrayObjectInfo });
+  }
+
+  removeItemFromCart = (id) => {
     this.setState(({ arrayObjectInfo }) => ({
-      arrayObjectInfo: ([...arrayObjectInfo, objectFrom]),
+      arrayObjectInfo: arrayObjectInfo.filter((item) => item.id !== id),
     }));
   }
 
-  removeItemFromCart = () => {
-  }
-
   render() {
-    const { productId, arrayObjectInfo } = this.state;
+    const { arrayObjectInfo } = this.state;
     return (
       <div className="content-container">
         <Switch>
@@ -37,10 +60,10 @@ export default class Content extends Component {
             path="/Cart"
             render={ () => (
               <Cart
-                productId={ productId }
                 addToCart={ this.addToCart }
-                removeFromCart={ this.removeItemFromCart }
-                arrayObjectInfo={ arrayObjectInfo }
+                removeItemFromCart={ this.removeItemFromCart }
+                calcAmountLess={ this.calcAmountLess }
+                cartListObject={ arrayObjectInfo }
               />) }
           />
           <Route
