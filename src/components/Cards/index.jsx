@@ -5,25 +5,38 @@ import PropTypes from 'prop-types';
 
 export default class Card extends Component {
   render() {
-    const { productObject: { title, price, thumbnail, id } } = this.props;
+    const { productObject: { title, price, thumbnail, id },
+      productObject, addToCart } = this.props;
     const image = thumbnail.replace(/I/, 'J');
     return (
-      <Link className="link" to={ `/product/${id}` } data-testid="product-detail-link">
-        <div className="card-container" data-testid="product">
+      <>
+        <Link className="link" to={ `/product/${id}` } data-testid="product-detail-link">
+          <div className="card-container" data-testid="product">
 
-          <img src={ image } alt={ title } />
+            <img src={ image } alt={ title } />
 
-          <div className="card-text">
-            <p>{title}</p>
-            <p>{price}</p>
+            <div className="card-text">
+              <p>{title}</p>
+              <p>{price}</p>
+
+            </div>
 
           </div>
-        </div>
-      </Link>
+        </Link>
+        <button
+          type="button"
+          data-testid="product-add-to-cart"
+          onClick={ () => addToCart(productObject) }
+        >
+          Adicionar ao Carrinho
+
+        </button>
+      </>
     );
   }
 }
 
 Card.propTypes = {
   productObject: PropTypes.shape().isRequired,
+  addToCart: PropTypes.func.isRequired,
 };

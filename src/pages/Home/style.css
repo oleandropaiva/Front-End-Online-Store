@@ -1,6 +1,7 @@
 .home-container {
   border: 1px solid red;
   padding: 20px;
+  width: 100%;
 }
 
 .category-content-container {
