@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default class Cart extends Component {
   handleAmount = ({ target: { id } }) => {
@@ -64,14 +65,15 @@ export default class Cart extends Component {
             )}
 
         </div>
-        <button
-          id=""
-          type="button"
-          onClick=""
-        >
-          Finalizar compra
-        </button>
-
+        <Link to="/checkout">
+          <button
+            id=""
+            type="button"
+            data-testid="checkout-products"
+          >
+            Finalizar compra
+          </button>
+        </Link>
       </div>
     );
   }
