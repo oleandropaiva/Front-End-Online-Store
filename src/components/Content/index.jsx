@@ -39,7 +39,7 @@ export default class Content extends Component {
     this.setState({ arrayObjectInfo });
   }
 
-  removeItemFromCart = (id) => {
+  removeItemFromCart = ({ target: { id } }) => {
     this.setState(({ arrayObjectInfo }) => ({
       arrayObjectInfo: arrayObjectInfo.filter((item) => item.id !== id),
     }));

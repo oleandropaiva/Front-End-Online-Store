@@ -67,7 +67,6 @@ export default class Cart extends Component {
         <button
           id=""
           type="button"
-          onClick=""
         >
           Finalizar compra
         </button>
