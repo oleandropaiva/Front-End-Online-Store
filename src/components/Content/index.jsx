@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Home from '../../pages/Home';
 import Cart from '../../pages/Cart';
 import Product from '../../pages/Product';
+import Checkout from '../../pages/Checkout';
 
 export default class Content extends Component {
   constructor(props) {
@@ -70,6 +71,11 @@ export default class Content extends Component {
             exact
             path="/product/:id"
             render={ (props) => <Product { ...props } addToCart={ this.addToCart } /> }
+          />
+          <Route
+            exact
+            path="/checkout"
+            render={ () => <Checkout productList={ arrayObjectInfo } /> }
           />
         </Switch>
       </div>
