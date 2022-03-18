@@ -116,7 +116,7 @@ export default class FormReview extends Component {
             listOfEvaluation && listOfEvaluation
               .map(({ id: idData, email, rate, description }, i) => idData === id && (
                 <section key={ email + i } className="evaluation-list-container">
-                  <h2 data-testid="product-detail-email">{email}</h2>
+                  <h2>{email}</h2>
                   <span>{rate}</span>
                   <p>{description}</p>
                 </section>
