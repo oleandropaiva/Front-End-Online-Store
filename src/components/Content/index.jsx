@@ -18,16 +18,29 @@ export default class Content extends Component {
     this.getLocalStorage();
   }
 
+  StorageLimit = (objInfo, objFrom) => {
+    const productObj = objInfo.find(({ id }) => id === objFrom.id);
+    if (productObj) {
+      const { available_quantity: quantity, itemAmount } = productObj;
+      return itemAmount < quantity;
+    }
+
+    return true;
+  }
+
   addToCart = (objectFrom) => {
     const { arrayObjectInfo } = this.state;
-    if (arrayObjectInfo.some((each) => each.id === objectFrom.id)) {
-      this.calcAmount(objectFrom, arrayObjectInfo);
-    } else {
-      this.setState((prev) => ({
-        arrayObjectInfo: ([...prev.arrayObjectInfo, { ...objectFrom, itemAmount: 1 }]),
-      }), this.countItemCart);
+
+    if (this.StorageLimit(arrayObjectInfo, objectFrom)) {
+      if (arrayObjectInfo.some((each) => each.id === objectFrom.id)) {
+        this.calcAmount(objectFrom, arrayObjectInfo);
+      } else {
+        this.setState((prev) => ({
+          arrayObjectInfo: ([...prev.arrayObjectInfo, { ...objectFrom, itemAmount: 1 }]),
+        }), this.countItemCart);
+      }
+      this.increaseLocalStorage();
     }
-    this.increaseLocalStorage();
   }
 
   calcAmount = (objectFrom, arrayObjectInfo) => {

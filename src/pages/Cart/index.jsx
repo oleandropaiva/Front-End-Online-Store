@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default class Cart extends Component {
   handleAmount = ({ target: { id } }) => {
-    const { addToCart } = this.props;
-    const { cartListObject } = this.props;
+    const { addToCart, cartListObject } = this.props;
     addToCart(cartListObject.find((obj) => obj.id === id));
   }
 
