@@ -28,7 +28,7 @@ export default class Product extends Component {
   }
 
   render() {
-    const { infoProduct: { title, price, thumbnail }, infoProduct } = this.state;
+    const { infoProduct: { id, title, price, thumbnail }, infoProduct } = this.state;
     const { addToCart, amountCart } = this.props;
     return (
       <div className="product-container">
