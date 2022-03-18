@@ -51,7 +51,9 @@ export default class Home extends Component {
 
         <div className="category-content-container">
           <CategoriesBar handler={ this.selectHandler } />
-          {productObject.length
+
+          <div className="cards-container">
+            {productObject.length
             && productObject.map((each) => (
               <Cards
                 key={ each.id }
@@ -59,6 +61,8 @@ export default class Home extends Component {
                 addToCart={ addToCart }
               />
             ))}
+          </div>
+
         </div>
       </div>
     );
