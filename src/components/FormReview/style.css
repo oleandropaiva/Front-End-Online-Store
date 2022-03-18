@@ -1,0 +1,34 @@
+.rate-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 80%;
+}
+
+.rate-off, .rate-active, .rate-border {
+  background-color: #c7c7c7;
+  border: none;
+  clip-path: polygon(50% 0%, 65% 29%, 98% 35%, 72% 55%, 79% 91%, 50%
+  70%, 21% 91%, 28% 55%, 2% 35%, 35% 31%);
+  color: rgb(255, 251, 213);
+  content: '';
+  font-size: 7px;
+  height: 25px;
+  width: 25px;
+}
+
+.rate-border {
+  align-items: center;
+  background-color: #ebd189;
+  display: flex;
+  height: 27px;
+  justify-content: center;
+  width: 27px;
+}
+
+.rate-off:hover {
+  box-shadow: 0 0 18px inset rgb(247, 227, 46);
+}
+
+.rate-active {
+  background-color: rgb(247, 227, 46);
+}
