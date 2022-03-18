@@ -37,7 +37,7 @@ export default class Home extends Component {
 
   render() {
     const { productObject } = this.state;
-    const { addToCart } = this.props;
+    const { addToCart, amountCart } = this.props;
     return (
 
       <div className="home-container">
@@ -47,6 +47,7 @@ export default class Home extends Component {
         />
         <Link to="/Cart" data-testid="shopping-cart-button">
           <button type="button">Carrinho</button>
+          <span data-testid="shopping-cart-size">{amountCart}</span>
         </Link>
 
         <div className="category-content-container">

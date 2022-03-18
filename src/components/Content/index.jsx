@@ -10,7 +10,12 @@ export default class Content extends Component {
     super(props);
     this.state = {
       arrayObjectInfo: [],
+      amountCart: 0,
     };
+  }
+
+  componentDidMount() {
+    this.getLocalStorage();
   }
 
   addToCart = (objectFrom) => {
@@ -20,15 +25,16 @@ export default class Content extends Component {
     } else {
       this.setState((prev) => ({
         arrayObjectInfo: ([...prev.arrayObjectInfo, { ...objectFrom, itemAmount: 1 }]),
-      }));
+      }), this.countItemCart);
     }
+    this.increaseLocalStorage();
   }
 
   calcAmount = (objectFrom, arrayObjectInfo) => {
     arrayObjectInfo
       .find((obj) => obj.id === objectFrom.id).itemAmount += arrayObjectInfo
         .reduce((acc, obj) => (obj.id === objectFrom.id ? acc + 1 : acc), 0);
-    this.setState({ arrayObjectInfo });
+    this.setState({ arrayObjectInfo }, this.countItemCart);
   }
 
   calcAmountLess = ({ target: { id } }) => {
@@ -36,40 +42,74 @@ export default class Content extends Component {
     arrayObjectInfo
       .find((obj) => obj.id === id).itemAmount -= arrayObjectInfo
         .reduce((acc, obj) => (obj.id === id ? acc + 1 : acc), 0);
-    this.setState({ arrayObjectInfo });
+    this.setState({ arrayObjectInfo }, this.countItemCart);
   }
 
   removeItemFromCart = ({ target: { id } }) => {
     this.setState(({ arrayObjectInfo }) => ({
       arrayObjectInfo: arrayObjectInfo.filter((item) => item.id !== id),
-    }));
+    }), () => this.decreaseLocalStorage());
+  }
+
+  increaseLocalStorage = () => {
+    const itensInLocalStorage = JSON.parse(localStorage.getItem('ItensCart'));
+    if (itensInLocalStorage === null) {
+      localStorage.setItem('ItensCart', JSON.stringify(0));
+    }
+    const newItensQuantity = itensInLocalStorage + 1;
+    localStorage.setItem('ItensCart', JSON.stringify(newItensQuantity));
+    this.setState({ amountCart: newItensQuantity });
+  }
+
+  decreaseLocalStorage = () => {
+    const itensInLocalStorage = JSON.parse(localStorage.getItem('ItensCart'));
+    if (itensInLocalStorage === null) {
+      localStorage.setItem('ItensCart', JSON.stringify(0));
+    }
+    const newItensQuantity = itensInLocalStorage - 1;
+    localStorage.setItem('ItensCart', JSON.stringify(newItensQuantity));
+    this.setState({ amountCart: newItensQuantity });
+  }
+
+  getLocalStorage = () => {
+    const itensAmount = JSON.parse(localStorage.getItem('ItensCart'));
+    this.setState({ amountCart: itensAmount });
   }
 
   render() {
-    const { arrayObjectInfo } = this.state;
+    const { arrayObjectInfo, amountCart } = this.state;
     return (
       <div className="content-container">
         <Switch>
           <Route
             exact
             path="/"
-            render={ () => <Home addToCart={ this.addToCart } /> }
+            render={
+              () => <Home addToCart={ this.addToCart } amountCart={ amountCart } />
+            }
           />
           <Route
             exact
             path="/Cart"
-            render={ () => (
-              <Cart
+            render={
+              () => (<Cart
                 addToCart={ this.addToCart }
                 removeItemFromCart={ this.removeItemFromCart }
                 calcAmountLess={ this.calcAmountLess }
                 cartListObject={ arrayObjectInfo }
-              />) }
+              />)
+            }
           />
           <Route
             exact
             path="/product/:id"
-            render={ (props) => <Product { ...props } addToCart={ this.addToCart } /> }
+            render={
+              (props) => (<Product
+                { ...props }
+                addToCart={ this.addToCart }
+                amountCart={ amountCart }
+              />)
+            }
           />
           <Route
             exact

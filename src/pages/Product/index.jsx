@@ -28,13 +28,14 @@ export default class Product extends Component {
   }
 
   render() {
-    const { infoProduct: { id, title, price, thumbnail }, infoProduct } = this.state;
-    const { addToCart } = this.props;
+    const { infoProduct: { title, price, thumbnail }, infoProduct } = this.state;
+    const { addToCart, amountCart } = this.props;
     return (
       <div className="product-container">
 
         <Link to="/Cart" data-testid="shopping-cart-button">
           <button type="button">Carrinho</button>
+          <span data-testid="shopping-cart-size">{amountCart}</span>
         </Link>
 
         <h1 data-testid="product-detail-name">{`${title} - ${price} `}</h1>
