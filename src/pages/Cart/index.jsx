@@ -55,7 +55,7 @@ export default class Cart extends Component {
                       type="button"
                       onClick={ removeItemFromCart }
                     >
-                      (X)
+                      X
                     </button>
                   </div>
 
@@ -67,7 +67,7 @@ export default class Cart extends Component {
         <button
           id=""
           type="button"
-          onClick=""
+          // onClick=""
         >
           Finalizar compra
         </button>
