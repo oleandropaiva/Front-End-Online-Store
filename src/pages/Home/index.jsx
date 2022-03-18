@@ -68,4 +68,5 @@ export default class Home extends Component {
 
 Home.propTypes = {
   addToCart: PropTypes.func.isRequired,
+  amountCart: PropTypes.number.isRequired,
 };
