@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './style.css';
 
 export default class FormReview extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ export default class FormReview extends Component {
   }
 
   handleFormSubmit = ({ target: { id } }) => {
+    console.log('passeiaeui');
     this.setState(({ listOfEvaluation, formFill }) => ({
       listOfEvaluation: [...listOfEvaluation, { id, ...formFill }],
     }), () => {
@@ -30,8 +32,10 @@ export default class FormReview extends Component {
   }
 
   render() {
-    const { listOfEvaluation } = this.state;
+    const { listOfEvaluation, formFill: { rate: rateChoice } } = this.state;
     const { id } = this.props;
+    const arrayOfStars = ['*', '*', '*', '*', '*'];
+
     return (
       <div>
         <form action="submit">
@@ -47,48 +51,24 @@ export default class FormReview extends Component {
             />
           </label>
 
-          <label htmlFor="rate">
-            <input
-              onChange={ this.handleFormFill }
-              data-testid="1-rating"
-              value="1"
-              name="rate"
-              type="radio"
-            />
-            1
-            <input
-              onChange={ this.handleFormFill }
-              data-testid="2-rating"
-              value="2"
-              name="rate"
-              type="radio"
-            />
-            2
-            <input
-              onChange={ this.handleFormFill }
-              data-testid="3-rating"
-              value="3"
-              name="rate"
-              type="radio"
-            />
-            3
-            <input
-              onChange={ this.handleFormFill }
-              data-testid="4-rating"
-              value="4"
-              name="rate"
-              type="radio"
-            />
-            4
-            <input
-              onChange={ this.handleFormFill }
-              data-testid="5-rating"
-              value="5"
-              name="rate"
-              type="radio"
-            />
-            5
-          </label>
+          <div className="rate-container">
+            {
+              arrayOfStars.map((_e, num) => (
+                <div key={ num } className="rate-border">
+                  <button
+                    name="rate"
+                    value={ num + 1 }
+                    data-testId={ `${num + 1}-rating` }
+                    className={ (num + 1 <= rateChoice) ? 'rate-active' : 'rate-off' }
+                    onClick={ this.handleFormFill }
+                    type="button"
+                  >
+                    {num + 1}
+                  </button>
+                </div>
+              ))
+            }
+          </div>
 
           <textarea
             name="description"
@@ -110,17 +90,18 @@ export default class FormReview extends Component {
 
         </form>
 
-        <div>
+        <div className="evaluation-list-container">
           {
 
             listOfEvaluation && listOfEvaluation
-              .map(({ id: idData, email, rate, description }, i) => idData === id && (
-                <section key={ email + i } className="evaluation-list-container">
-                  <h2>{email}</h2>
-                  <span>{rate}</span>
-                  <p>{description}</p>
-                </section>
-              ))
+              .map(({ id: idData, email, rate, description }, i) => idData === id
+                && (
+                  <section key={ email + i } className="evaluation">
+                    <h2>{email}</h2>
+                    <span>{rate}</span>
+                    <p>{description}</p>
+                  </section>
+                ))
 
           }
         </div>
