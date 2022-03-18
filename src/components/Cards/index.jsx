@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 export default class Card extends Component {
   render() {
-    const { productObject: { title, price, thumbnail, id },
+    const { productObject: { title, price, thumbnail, id, shipping: { free_shipping: isShipoing } },
       productObject, addToCart } = this.props;
     const image = thumbnail.replace(/I/, 'J');
     return (
@@ -18,6 +18,7 @@ export default class Card extends Component {
             <div className="card-text">
               <p>{title}</p>
               <p>{price}</p>
+              {isShipoing && <span data-testid="free-shipping">Frete grátis</span>}
 
             </div>
 
