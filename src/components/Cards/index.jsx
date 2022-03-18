@@ -5,11 +5,12 @@ import PropTypes from 'prop-types';
 
 export default class Card extends Component {
   render() {
-    const { productObject: { title, price, thumbnail, id },
-      productObject, addToCart } = this.props;
+    const { productObject: { title, price, thumbnail, id,
+      shipping: { free_shipping: isShipoing } },
+    productObject, addToCart } = this.props;
     const image = thumbnail.replace(/I/, 'J');
     return (
-      <>
+      <section className="section-card-container">
         <Link className="link" to={ `/product/${id}` } data-testid="product-detail-link">
           <div className="card-container" data-testid="product">
 
@@ -20,6 +21,15 @@ export default class Card extends Component {
               <p>{price}</p>
 
             </div>
+            {isShipoing
+              && (
+                <span
+                  data-testid="free-shipping"
+                  className="free-shiping"
+                >
+                  Frete grátis
+                </span>
+              )}
 
           </div>
         </Link>
@@ -31,7 +41,7 @@ export default class Card extends Component {
           Adicionar ao Carrinho
 
         </button>
-      </>
+      </section>
     );
   }
 }

@@ -7,3 +7,10 @@
 .category-content-container {
   display: flex;
 }
+
+.cards-container {
+  border: 1px solid red;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}

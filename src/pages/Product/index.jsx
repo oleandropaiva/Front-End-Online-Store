@@ -3,6 +3,7 @@ import './style.css';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductDetails } from '../../services/api';
+import FormReview from '../../components/FormReview';
 
 export default class Product extends Component {
   constructor() {
@@ -56,6 +57,9 @@ export default class Product extends Component {
           Adicionar ao Carrinho
 
         </button>
+        <div className="form-review-container">
+          <FormReview id={ id } />
+        </div>
       </div>
     );
   }
