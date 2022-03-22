@@ -33,10 +33,24 @@ export default class Product extends Component {
     return (
       <div className="product-container">
 
-        <Link to="/Cart" data-testid="shopping-cart-button">
-          <button type="button">Carrinho</button>
-          <span data-testid="shopping-cart-size">{amountCart}</span>
-        </Link>
+        <div className="cart-container">
+          <Link to="/Cart" data-testid="shopping-cart-button">
+            <button
+              className="btn-cart"
+              type="button"
+            >
+              Carrinho
+
+            </button>
+            <span
+              className="amountCart"
+              data-testid="shopping-cart-size"
+            >
+              {amountCart}
+
+            </span>
+          </Link>
+        </div>
 
         <h1 data-testid="product-detail-name">{`${title} - ${price} `}</h1>
 

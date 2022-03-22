@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './style.css';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Footer from '../../components/Footer';
 import CategoriesBar from '../../components/CategoriesBar/index';
-import FormSearch from '../../components/FormSearch';
+import Header from '../../components/Header';
 import Cards from '../../components/Cards';
 import { getProductsFromCategoryAndQuery } from '../../services/api';
 
@@ -37,18 +37,15 @@ export default class Home extends Component {
 
   render() {
     const { productObject } = this.state;
-    const { addToCart, amountCart } = this.props;
+    const { addToCart } = this.props;
     return (
 
       <div className="home-container">
-        <FormSearch
+        <Header
+          { ...this.props }
           handleSearch={ this.handleSearch }
           handleChangeToSearch={ this.handleChangeToSearch }
         />
-        <Link to="/Cart" data-testid="shopping-cart-button">
-          <button type="button">Carrinho</button>
-          <span data-testid="shopping-cart-size">{amountCart}</span>
-        </Link>
 
         <div className="category-content-container">
           <CategoriesBar handler={ this.selectHandler } />
@@ -65,6 +62,7 @@ export default class Home extends Component {
           </div>
 
         </div>
+        <Footer />
       </div>
     );
   }
