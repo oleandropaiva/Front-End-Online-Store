@@ -31,9 +31,16 @@ class CategoriesBar extends Component {
     if (categoriesList) {
       list = categoriesList
         .map(({ name, id }) => (
-          <li key={ name }>
-            <label htmlFor={ id }>
+          <li
+            className="category"
+            key={ name }
+          >
+            <label
+              htmlFor={ id }
+
+            >
               <input
+                className="category-input"
                 data-testid="category"
                 type="radio"
                 name="categoryId"

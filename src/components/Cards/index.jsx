@@ -33,12 +33,14 @@ export default class Card extends Component {
 
           </div>
         </Link>
+
         <button
           type="button"
+          className="button-card"
           data-testid="product-add-to-cart"
           onClick={ () => addToCart(productObject) }
         >
-          Adicionar ao Carrinho
+          <strong className="text-button">Adicionar ao Carrinho</strong>
 
         </button>
       </section>

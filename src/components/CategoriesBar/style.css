@@ -1,6 +1,32 @@
 .category-ul {
-  border: solid 1px blue;
-  height: 500px;
+  border-radius: 5px;
+  margin: 15px;
   min-width: 280px;
-  overflow-y: auto;
+}
+
+.category {
+  background: var(--bg-header);
+  border-radius: 5px;
+  color: white;
+  height: 30px;
+  line-height: 30px;
+  list-style: none;
+  margin: 5px;
+  padding: 0 5px;
+}
+
+.category:hover {
+  background: var(--bg-page);
+  box-shadow: 0 0 5px var(--vine);
+  color: black;
+  font-weight: 800;
+  transition: 0.3s;
+}
+
+.category-input {
+  appearance: none;
+}
+
+.category:active {
+  transform: translate(1%, 1%);
 }

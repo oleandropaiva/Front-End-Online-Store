@@ -1,6 +1,5 @@
 .section-card-container {
   align-items: space-evenly;
-  border: 1px solid;
   display: flex;
   flex-direction: column;
   margin: 10px;
@@ -29,13 +28,35 @@
 }
 
 .card-text {
-  border: 1px solid black;
+  flex-shrink: 1;
   font-size: flex;
   height: 100%;
+  overflow: hidden;
   padding: 0 15px 15px;
   width: 100%;
 }
 
 .free-shiping {
   position: absolute;
+}
+
+.button-card {
+  align-self: center;
+  background: white;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px grey;
+  font-size: 0.7rem;
+  font-weight: 800;
+  height: 100%;
+  padding: 5px 15px;
+  text-align: center;
+  width: fit-content;
+  word-wrap: nowrap;
+}
+
+.button-card:hover {
+  background: var(--blue);
+  color: white;
+  transition: 0.5s;
 }
